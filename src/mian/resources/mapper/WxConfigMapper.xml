@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+				 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ranxx.mapper.WxConfigMapper">
+
+	<!-- 查询微信设置 -->
+	<select id="getWxConfig" resultType="com.ranxx.model.WxConfig">
+		SELECT id, appid, secret, token 
+		FROM wx_config 
+		LIMIT 0,1
+	</select>
+	
+	<!-- 修改微信设置信息 -->
+	<update id="update">
+		UPDATE wx_config
+		<trim prefix="set" suffixOverrides=",">
+			<if test="appid != null">appid = #{appid},</if>
+  			<if test="secret != null">secret = #{secret},</if>
+		</trim>
+		WHERE token = "runxx"
+	</update>
+</mapper>

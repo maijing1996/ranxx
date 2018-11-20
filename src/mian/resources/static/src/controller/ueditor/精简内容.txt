@@ -1,0 +1,4 @@
+1,ueditor.all.js;ueditor.parse.js
+2,lang下en目录
+3,config配置文件
+4,third-party下 snapscreen，SyntaxHighlighter

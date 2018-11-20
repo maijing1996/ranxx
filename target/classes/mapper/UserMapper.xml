@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+				 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ranxx.mapper.UserMapper">
+
+	<!-- 回放游戏过程 -->
+	<update id="updateReplay">
+		UPDATE user SET replay = #{replay} WHERE openid = #{openid}
+	</update>
+	
+	<!-- 用户修改头像或昵称 -->
+	<!--  SET nickname = #{nickname}, headimgurl = #{headimgurl} -->
+	<update id="updateUser">
+		UPDATE user	
+		<trim prefix="set" suffixOverrides=",">
+			<if test="nickname != null">nickname = #{nickname},</if>
+  			<if test="headimgurl != null">headimgurl = #{headimgurl},</if>
+		</trim>
+		WHERE openid = #{openid} 
+	</update>
+	
+	<!-- 查询所有的用户 -->
+	<select id="listinfo" resultType="com.ranxx.model.User">
+		SELECT id, openid, nickname, sex, headimgurl, grade,now_level, @rownum := @rownum +1 AS ranks
+		FROM user, (SELECT@rownum :=0) r 
+		ORDER BY grade DESC
+	</select>
+	
+	<!-- openid查询用户以及当前的排名 -->
+	<select id="getUser" resultType="com.ranxx.model.User">
+		SELECT id, openid, nickname, sex, grade, headimgurl, more_win_num, more_num, fashion_num, now_level, ranks
+		FROM (SELECT id, openid, nickname, sex, headimgurl, more_win_num, more_num,
+		fashion_num, grade, now_level, @rownum := @rownum +1 AS ranks
+			  FROM user, (SELECT@rownum :=0) r 
+			  ORDER BY grade DESC) c
+		WHERE openid = #{openid}
+	</select> 
+	
+	<!-- 更改用户的分数（成绩） -->
+	<update id="update">
+		UPDATE user SET grade = #{grade} WHERE openid = #{openid}
+	</update>
+	
+	<!-- 插入用户数据 -->
+	<insert id="save">
+		INSERT INTO user(openid, nickname, sex, headimgurl, grade) VALUES(#{openid}, #{nickname}, #{sex}, #{headimgurl}, 0)
+	</insert>
+	
+	<!-- 更改用户通关关卡 -->
+	<update id="updateLevel">
+		UPDATE user SET now_level = #{nowLevel} WHERE openid = #{openid}
+	</update>
+	
+</mapper>

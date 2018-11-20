@@ -1,0 +1,76 @@
+{
+  "code": 0
+  ,"msg": ""
+  ,"data": [{
+    "title": "后台主页"
+    ,"icon": "layui-icon-home"
+    ,"jump": "home/homepage2"
+  },  {
+    "name": "member"
+    ,"title": "用户管理"
+    ,"icon": "layui-icon-user"
+    ,"list": [{
+      "name": "member_list"
+      ,"title": "用户列表"
+      ,"jump": "member/list"
+    }, {
+      "name": "member_level"
+      ,"title": "会员等级"
+      ,"jump": "member/level"
+    }, {
+      "name": "member_integral"
+      ,"title": "积分明细"
+      ,"jump": "member/integral"
+    }, {
+      "name": "member_property"
+      ,"title": "资金明细"
+      ,"jump": "member/property"
+    }, {
+      "name": "member_withdraw"
+      ,"title": "会员提现"
+      ,"jump": "member/withdraw"
+    }]
+  }, {
+    "name": "power"
+    ,"title": "权限管理"
+    ,"icon": "layui-icon-username"
+    ,"list": [{
+      "name": "power_"
+      ,"title": "管理员列表"
+      ,"jump": "power/list"
+    }, {
+      "name": "power_"
+      ,"title": "管理员角色"
+      ,"jump": "power/role"
+    }, {
+      "name": "power_"
+      ,"title": "管理员日志"
+      ,"jump": "power/log"
+    }]
+  }, {
+    "name": "wechat"
+    ,"title": "微信设置"
+    ,"icon": "layui-icon-dialogue"
+    ,"list": [{
+      "name": "basic"
+      ,"title": "基本设置"
+      ,"jump": "wechat/basic-setting"
+    }, {
+      "name": "menu"
+      ,"title": "微信分享"
+      ,"jump": "wechat/wechat-menu"
+    }, {
+    	"name": "menu"
+       ,"title": "游戏设置"
+       ,"jump": "wechat/game-setting"
+    }, {
+    	"name": "menu"
+    	,"title": "保存图片"
+    	,"jump": "wechat/picture-add"
+    }, {
+      "name": "reply"
+      ,"title": "微信回复"
+      ,"jump": "wechat/wechat-reply"
+    }]
+  }]
+}

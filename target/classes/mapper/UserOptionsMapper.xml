@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+				 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ranxx.mapper.set.UserSetMapper">
+	
+	<!-- 查询用户 -->
+	<select id="userInfo" resultType="com.ranxx.model.User">
+		SELECT id, openid, nickname, headimgurl, grade,now_level
+		FROM user
+		<where>
+			<if test="nickname != null and nickname !=''">
+				AND nickname LIKE CONCAT('%', #{nickname}, '%') 
+			</if>
+		</where>
+		ORDER BY id ASC
+	</select>
+	
+</mapper>	
+	
+
+
+	

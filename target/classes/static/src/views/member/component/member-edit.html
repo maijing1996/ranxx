@@ -1,0 +1,120 @@
+
+<div class="layui-main">
+	<div class="layui-body-ctr">
+		<div class="layui-ctt1">
+			<form id="myform" class="layui-form" action="{:url('save')}">
+				<div class="layui-tab layui-tab-card">
+					<ul class="layui-tab-title">
+						<li class="layui-this">编辑会员</li>
+					</ul>
+					<div class="layui-tab-content">
+						<div class="layui-form-item">
+							<label class="layui-form-label">用户名：</label>
+							<div class="layui-input-inline">
+								<input type="text" name="uid" value="{{ d.data.avatar || '' }}" readonly class="layui-input">
+							</div>
+							<div class="layui-form-mid layui-word-aux">用户名不可修改</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label">新密码：</label>
+							<div class="layui-input-inline">
+								<input type="password" name="password" datatype="*" errormsg="两次新密码不同" ignore="ignore" recheck="password_confirm" placeholder="不改请不填写" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label">确认新密码：</label>
+							<div class="layui-input-inline">
+								<input type="password" name="password_confirm" datatype="*" ignore="ignore" recheck="password" errormsg="两次新密码不同" placeholder="不改请不填写" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label">会员昵称：</label>
+							<div class="layui-input-inline">
+								<input type="text" name="m_nickname" value="{{ d.data.avatar || '' }}" placeholder="请输入会员昵称" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label">绑定手机：</label>
+							<div class="layui-input-inline">
+								<input type="text" name="m_tel" datatype="m" errormsg="手机号码错误" placeholder="请输入手机号码" ignore="ignore" value="{{ d.data.avatar || '' }}" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label">绑定邮箱：</label>
+							<div class="layui-input-inline">
+								<input type="text" name="m_email" datatype="e" errormsg="邮箱地址错误" placeholder="请输入邮箱地址" ignore="ignore" value="{{ d.data.avatar || '' }}" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label">是否激活：</label>
+							<div class="layui-input-block">
+								<input type="checkbox" name="m_work" value="1" {eq name="$data.is_work" value="1"}checked{/eq} lay-skin="switch">
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label">开启分销：</label>
+							<div class="layui-input-block">
+								<input type="checkbox" name="m_fx" value="1" {eq name="$data.is_fx" value="1"}checked{/eq} lay-skin="switch">
+							</div>
+						</div>
+						{neq name="$data.openid" value=""}
+						<div class="layui-form-item">
+							<label class="layui-form-label">第三方登录：</label>
+							<div class="layui-form-mid layui-word-aux">微信/{{ d.data.avatar || '' }}/{{ d.data.avatar || '' }}</div>
+						</div>
+						{/neq}
+						{neq name="$data.xcx_openid" value=""}
+						<div class="layui-form-item">
+							<label class="layui-form-label">第三方登录：</label>
+							<div class="layui-form-mid layui-word-aux">小程序/{{ d.data.avatar || '' }}/{{ d.data.avatar || '' }}</div>
+						</div>
+						{/neq}
+						<div class="layui-form-item">
+							<label class="layui-form-label">会员积分：</label>
+							<div class="layui-form-mid layui-word-aux">{{ d.data.avatar || '' }}分&emsp;<button type="button" class="layui-btn layui-btn-small layui-btn-normal" onclick="edit_account('integral');">调整积分</button></div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label">会员余额：</label>
+							<div class="layui-form-mid layui-word-aux">{{ d.data.avatar || '' }}元&emsp;<button type="button" class="layui-btn layui-btn-small layui-btn-danger" onclick="edit_account('money')">调整余额</button></div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label">注册时间：</label>
+							<div class="layui-form-mid layui-word-aux">{{ d.data.avatar || '' }}</div>
+						</div>
+
+						<input type="hidden" name="m_id" value="{{ d.data.avatar || '' }}">
+						<div class="layui-form-item" style="border: 0;">
+							<div class="layui-input-block">
+								<button class="layui-btn">立即提交</button>
+								<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+{include file="footer" /}
+<script>
+       //调整账户积分/余额
+       function edit_account(type) {
+           if(type=="integral") {
+               m_title="修改积分";
+               m_url = "{:url('admin/user/edit_account',['id'=>$data.id,'type'=>'integral'])}";
+		}
+		else {
+               m_title="修改余额";
+               m_url = "{:url('admin/user/edit_account',['id'=>$data.id,'type'=>'money'])}";
+		}
+           layer.open({
+               type: 2,
+               title: m_title,
+               shadeClose: true,
+               shade: false,
+               area: ['460px', '340px'],
+               content: m_url
+           });
+
+       }
+</script>

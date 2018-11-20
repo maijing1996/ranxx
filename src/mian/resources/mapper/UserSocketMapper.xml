@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+				 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ranxx.mapper.UserSocketMapper">
+	<!-- 根据openId查询用户的 信息 -->
+	<select id="getUser" resultType="com.ranxx.model.User">
+		SELECT id, nickname, headimgurl, token
+		FROM user
+		WHERE openid = #{openId}
+	</select>
+	
+	<!-- 保存/修改token -->
+	<update id="saveToken">
+		UPDATE user SET token = #{token}
+		WHERE openid = #{openId}
+	</update>
+	
+	<!-- 根据token查询用户 -->
+	<select id="getUserByToken" resultType="com.ranxx.model.User">
+		SELECT id, nickname, headimgurl, token
+		FROM user
+		WHERE token = #{token}
+	</select>
+</mapper>				 

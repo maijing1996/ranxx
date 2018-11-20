@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+				 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.ranxx.mapper.PictureMapper">
+	
+	<!-- 查询分享图片 -->
+	<select id="listPicture" resultType="com.ranxx.model.Picture">
+		SELECT id, imgUrl,titleText
+		FROM picture
+		ORDER BY id ASC
+	</select>
+	
+	<!-- 插入分享图片 -->
+	<insert id="save">
+		INSERT INTO picture(imgUrl,titleText) VALUES (#{imgUrl},#{titleText})
+	</insert>
+</mapper> 

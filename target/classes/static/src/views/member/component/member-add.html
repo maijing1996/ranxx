@@ -1,0 +1,41 @@
+
+<div class="layui-main">
+	<div class="layui-body-ctr">
+		<div class="layui-ctt1">
+			<form id="myform" class="layui-form" action="{:url('save')}">
+				<div class="layui-tab layui-tab-card">
+					<ul class="layui-tab-title">
+						<li class="layui-this">添加会员</li>
+					</ul>
+					<div class="layui-tab-content">
+						<div class="layui-form-item">
+							<label class="layui-form-label"><span>*</span> 用户名：</label>
+							<div class="layui-input-inline">
+								<input type="text" name="uid" datatype="*" nullmsg="请输入用户名!" placeholder="请输入用户名" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label"><span>*</span> 密码：</label>
+							<div class="layui-input-inline">
+								<input name="password" type="password" datatype="*6-20" recheck="password_confirm" nullmsg="密码为空" errormsg="密码需6~20位" placeholder="请输入6~20位密码" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label"><span>*</span> 确认密码：</label>
+							<div class="layui-input-inline">
+								<input name="password_confirm" type="password" datatype="*6-20" recheck="password" nullmsg="确认密码为空" errormsg="两次输入的密码不同" placeholder="请输入确认密码" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-form-item" style="border: 0;">
+								<div class="layui-input-block">
+									<button class="layui-btn">立即提交</button>
+									<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+{include file="footer" /}

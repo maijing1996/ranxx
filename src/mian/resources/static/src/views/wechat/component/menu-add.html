@@ -1,0 +1,54 @@
+
+<div class="layui-main">
+	<div class="layui-body-ctr">
+		<div class="layui-ctt1">
+			<form id="myform" class="layui-form" action="/manager/wechat/share/save">
+				<div class="layui-tab layui-tab-card">
+					<ul class="layui-tab-title">
+						<li class="layui-this">添加</li>
+					</ul>
+					<div class="layui-tab-content">
+						
+						<div class="layui-form-item">
+							<label class="layui-form-label"><span>*</span> 图片url：</label>
+							<div class="layui-input-inline">
+								<input type="text" name="imgUrl" datatype="*" nullmsg="请输入url!" placeholder="请输入url" class="layui-input">
+							</div>
+						</div>
+
+						<div class="layui-form-item">
+							<label class="layui-form-label"><span>*</span> <span id="title" style="color: #333;">分享文字</span>：</label>
+							<div class="layui-input-inline">
+								<input type="text" id="titleText" name="titleText" datatype="*" nullmsg="请输入文字" placeholder="请输入文字" class="layui-input">
+							</div>
+						</div>
+						<!-- <input type="hidden" name="m_tid" value="{{ d.data.avatar || '' }}"> -->
+						<div class="layui-form-item" style="border: 0;">
+							<div class="layui-input-block">
+								<button class="layui-btn">立即提交</button>
+								<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+	{include file="footer" /}
+	<script>
+        layui.use(['form'], function(){
+            var form = layui.form();
+            form.on('select(m_type)',function (data) {
+                if(data.value==0){
+                    $("#title").html('分享文字');
+                    $("#title").attr('placeholder','请输入文字');
+                }
+                else {
+                    $("#t_info").html('关键词');
+                    $("#m_info").attr('placeholder','请输入关键词');
+                    $("#span_info").html('设置后到微信回复中设置动作');
+                }
+            });
+        });
+	</script>

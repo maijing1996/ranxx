@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+				 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+				 
+<mapper namespace="com.ranxx.mapper.BattleRecordMapper">
+	
+	<!-- 可以用來判斷用戶是否已創建了房間 -->
+	<select id="getByOwnerId" resultType="com.ranxx.model.socket.BattleRecord">
+		SELECT room_id, add_time, owner_uid 
+		FROM battle_record 
+		WHERE owner_uid = #{owner_uid}
+	</select>
+	
+</mapper>

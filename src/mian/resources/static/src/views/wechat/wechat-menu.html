@@ -1,0 +1,124 @@
+
+
+<title>网站用户</title>
+  
+<div class="layui-card layadmin-header">
+  <div class="layui-breadcrumb" lay-filter="breadcrumb">
+    <a lay-href="">主页</a>
+    <a><cite>微信设置</cite></a>
+    <a><cite>微信分享</cite></a>
+  </div>
+</div>
+
+<div class="layui-fluid">
+  <div class="layui-card">  
+    <div class="layui-card-body">
+      <div style="padding-bottom: 10px;">
+      	<!-- <button class="layui-btn layuiadmin-btn-useradmin" data-type="add">添加</button> -->
+    <!--     <button class="layui-btn layui-btn-normal layuiadmin-btn-useradmin">发布菜单(原功能未开发)</button> -->
+      </div>
+      <table id="OM-wechat-menu" lay-filter="OM-wechat-menu"></table>
+      <script type="text/html" id="imgTpl"> 
+        <img style="display: inline-block; width: 50%; height: 100%;" src= {{ d.avatar }}>
+      </script> 
+      <script type="text/html" id="table-wechat-menu">
+        <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>编辑</a>
+		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon layui-icon-delete"></i>删除</a>
+      </script>
+    </div>
+  </div>
+</div>
+
+<script>
+	layui.use('wechat', layui.factory('wechat')).use(['admin', 'wechat', 'table'], function(){
+  		var $ = layui.$,
+  		admin = layui.admin,
+  		view = layui.view,
+  		table = layui.table,
+  		form = layui.form;
+  
+  		form.render(null, 'layadmin-userfront-formlist');
+  
+  		//监听搜索
+  		form.on('submit(LAY-user-front-search)', function(data){
+    		var field = data.field;
+    
+    		//执行重载
+    		table.reload('OM-wechat-menu', {
+     	 		where: field
+    		});
+  		});
+
+  		//事件
+  		var active = {
+			batchdel: function(){
+      			var checkStatus = table.checkStatus('OM-wechat-menu'),
+      			checkData = checkStatus.data; //得到选中的数据
+      			if(checkData.length === 0){
+        			return layer.msg('请选择数据');
+      			}
+
+      			//数据封装
+      			var val = '';
+      			for(var i=0; i < checkData.length; i++) {
+      				var obj =checkData[i];
+      				val = val + obj.id + ",";
+      			}
+      			var val = val.substring(0, val.length - 1);
+      			var req = {"ids": val};
+      			layer.confirm('确定删除吗？', function(index) {
+        			layer.close(index);
+	          		//执行 Ajax 后重载
+	          		$.ajax({
+						type: "POST",
+						url: "/manager/wechat/menu/deletes",
+						dataType:'json',//预期服务器返回的数据类型
+						contentType: "application/json; charset=utf-8",
+						async: false,
+						data: JSON.stringify(req),
+						success: function(data){
+							layer.open({
+	                  	      	content: data.desc,
+	                   	     	btn: ['确认'],
+	                   	     	yes: function(index, layero) {
+	                        		layer.close(index);
+	                        		table.reload('OM-wechat-menu', null);
+	                        	}
+	                   	 	});
+						}, error: function(){
+							location.hash='/system/404';
+						}
+		    		});
+        		});
+      		},
+      		add: function(){
+      			admin.popup({
+        			title: '添加用户',
+        			area: ['500px', '450px'],
+        			id: 'LAY-popup-user-add',
+        			success: function(layero, index){
+          				view(this.id).render('wechat/component/menu-add').done(function(){
+            				form.render(null, 'popup-form-edit');
+            
+            				//监听提交
+            				form.on('submit(LAY-user-front-submit)', function(data){
+              					var field = data.field; //获取提交的字段
+
+              					//提交 Ajax 成功后，关闭当前弹层并重载表格
+					            //$.ajax({});
+					            layui.table.reload('OM-wechat-menu'); //重载表格
+					            layer.close(index); //执行关闭 
+            				});
+          				});
+        			}
+      			});
+    		}
+  			
+  		};
+  
+  		$('.layui-btn.layuiadmin-btn-useradmin').on('click', function(){
+    		var type = $(this).data('type');
+    		active[type] ? active[type].call(this) : '';
+  		});
+	});
+</script>

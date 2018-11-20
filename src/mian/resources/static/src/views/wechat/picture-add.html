@@ -1,0 +1,107 @@
+
+
+<title>网站用户</title>
+  
+<div class="layui-card layadmin-header">
+  <div class="layui-breadcrumb" lay-filter="breadcrumb">
+    <a lay-href="">主页</a>
+    <a><cite>微信设置</cite></a>
+    <a><cite>保存图片</cite></a>
+  </div>
+</div>
+
+<script type="text/html" template lay-url="/manager/wechat/share/list" lay-type="post">
+<div class="layui-main layui-form">
+	<div class="layui-body-ctr">
+		<div class="layui-ctt1">
+			<div class="layui-tab layui-tab-card">
+				<ul class="layui-tab-title">
+					<li class="layui-this">保存图片</li>
+				</ul>
+				<div class="layui-tab-content">
+					<div class="layui-form-item">
+						<label class="layui-form-label"><span>*</span> imgUrl：</label>
+						<div class="layui-input-inline">
+							<input type="text" name="imgUrl" datatype="*" nullmsg="imgUrl为空!" placeholder="请输入imgUrl" class="layui-input" value="">
+						</div>
+						<div class="layui-form-mid layui-word-aux">图片的url</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label"><span>*</span> titleText：</label>
+						<div class="layui-input-inline" style="width: 300px;">
+							<input type="text" name="titleText" datatype="*" nullmsg="titleText为空!" placeholder="请输入titleText" class="layui-input" value="">
+						</div>
+						<div class="layui-form-mid layui-word-aux">分享文字</div>
+					</div>
+					
+					<input type="hidden" name="id" value="{{d.data.id}}">
+					<div class="layui-form-item" style="border: 0;">
+						<div class="layui-input-block">
+							<button class="layui-btn layuiadmin-btn-useradmin" lay-submit lay-filter="LAY-user-front-search">立即提交</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</script>
+
+<script src="/src/js/ueditor/ueditor.config.js" type="text/javascript"></script>
+<script src="/src/js/ueditor/ueditor.all.min.js" type="text/javascript"></script>
+<script>
+	layui.use(['admin', 'form', 'upload'], function(){
+		var $ = layui.$,
+	  	form = layui.form,
+	  	admin = layui.admin,
+	  	upload = layui.upload;
+	  	//上传头像
+	  	/* upload.render({
+	    	elem: '#layuiadmin-upload-useradmin',
+	    	url: 'http://file.huoxinghy.com/mngadmin/Upload3/unifile_file',
+	    	accept: 'images',
+	    	method: 'get',
+	    	acceptMime: 'image/*',
+	    	done: function(res){
+	      		$(this.item).prev("div").children("input").val(res.data.img);
+	    	}
+	  	}); */
+	  	//
+	  	form.on('submit(LAY-user-front-search)', function(data){
+    		var field = data.field;
+    		console.log(field);
+    		$.ajax({
+    			type: "POST",
+				url: "/manager/wechat/share/save",
+				dataType:'json',//预期服务器返回的数据类型
+				contentType: "application/json; charset=utf-8",
+				async: false,
+				data: JSON.stringify(field),
+				success: function(data){
+					layer.open({
+                        content: data.desc,
+                        btn: ['确认'],
+                        yes: function(index, layero) {
+                        	
+                        	layer.close(index);
+                        	//执行重载
+                    		table.reload('OM-member-list', {
+                      			where: field
+                    		});
+                        }
+                    });
+				}, error: function(){
+					location.hash='/system/404';
+				}
+    		});
+  		});
+	});
+</script>
+
+
+
+
+
+
+
+

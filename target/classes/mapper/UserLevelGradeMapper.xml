@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+				 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ranxx.mapper.UserLevelGradeMapper">
+
+	<!-- 获取用户各个关卡的信息 -->
+	<select id="getLevelGrade" resultType="com.ranxx.model.dto.UserLevelGradeMax">
+		SELECT ulg.id, ulg.uid, ulg.level, ulg.grade, ulg.lookNum, llc.maxNum, ulg.is_carnet
+		FROM user_level_grade ulg LEFT JOIN lock_level_config llc ON ulg.level=llc.level
+		WHERE uid = #{uid}
+	</select>
+	
+	<!-- 保存用户关卡信息 -->
+	<insert id="save">
+		INSERT INTO user_level_grade (uid, level) VALUES (#{uid}, #{level})
+	</insert>
+
+	<!-- 修改关卡的分数 -->
+	<update id="updateLevelGrade">
+		UPDATE user_level_grade SET grade = #{grade} WHERE level = #{level} AND uid = #{uid}
+	</update>
+
+	<!-- 修改观看次数 -->
+	<update id="updateLooNum">
+		UPDATE user_level_grade SET lookNum = #{lookNum} WHERE level = #{level} AND uid = #{uid}
+	</update>
+	
+	<!-- 修改通关关卡 -->
+	<update id="updateCarnet">
+		UPDATE user_level_grade SET is_carnet = #{is_carnet} WHERE level = #{level} AND uid = #{uid}
+	</update>
+	
+</mapper>

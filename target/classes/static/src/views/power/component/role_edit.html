@@ -1,0 +1,61 @@
+
+
+<title>网站用户</title>
+  
+<div class="layui-card layadmin-header">
+  <div class="layui-breadcrumb" lay-filter="breadcrumb">
+    <a lay-href="../index">主页</a>
+    <a><cite>权限设置</cite></a>
+    <a><cite>编辑管理员角色</cite></a>
+  </div>
+</div>
+
+<div class="layui-main">
+	<div class="layui-body-ctr">
+		<div class="layui-ctt1">
+			<form id="myform" class="layui-form" action="{:url('save')}">
+				<div class="layui-tab layui-tab-card">
+					<ul class="layui-tab-title">
+						<li class="layui-this">编辑管理员角色</li>
+					</ul>
+					<div class="layui-tab-content">
+						<div class="layui-form-item">
+							<label class="layui-form-label"><span>*</span> 角色名称：</label>
+							<div class="layui-input-inline">
+								<input type="text" name="m_title" datatype="*" nullmsg="请输入名称!" placeholder="请输入名称" class="layui-input" value="{$data.title}">
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label">角色描述：</label>
+							<div class="layui-input-block">
+								<textarea name="m_info" placeholder="请输入描述" class="layui-textarea">{$data.info}</textarea>
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label">管理权限：</label>
+							<div class="layui-input-block">
+								<!-- {volist name="roleList" id="menu"}
+								{eq name="$menu.parent_id" value="0"}
+								{neq name="$i" value="1"}</div>{/neq} -->
+							    <div class="m_ctr">
+								<!-- {else} -->
+								<input type="checkbox" name="m_power[]" lay-skin="primary" title="{$menu.title}" value="{$menu.id}" {eq name=":in_array($menu.id,$power_arr)" value="1"}checked=""{/eq} />
+								<!-- {/eq}
+								{/volist} -->
+								</div>
+							</div>
+						</div>
+
+						<input type="hidden" name="m_id" value="{$data.id}">
+						<div class="layui-form-item" style="border: 0;">
+							<div class="layui-input-block">
+								<button class="layui-btn">立即提交</button>
+								<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

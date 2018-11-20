@@ -1,0 +1,79 @@
+
+
+<title>网站用户</title>
+  
+<div class="layui-card layadmin-header">
+  <div class="layui-breadcrumb" lay-filter="breadcrumb">
+    <a lay-href="../index">主页</a>
+    <a><cite>权限设置</cite></a>
+    <a lay-href="/power/role"><cite>管理员角色</cite></a>
+    <a><cite>添加管理员角色</cite></a>
+  </div>
+</div>
+
+<div class="layui-main">
+	<div class="layui-body-ctr">
+		<div class="layui-ctt1">
+			<form class="layui-form" action="">
+				<div class="layui-tab layui-tab-card">
+					<ul class="layui-tab-title">
+						<li class="layui-this">添加管理员角色</li>
+					</ul>
+					<div class="layui-tab-content">
+						<div class="layui-form-item">
+							<label class="layui-form-label"><span style="color: red;">*</span> 角色名称：</label>
+							<div class="layui-input-inline">
+								<input type="text" name="m_title" datatype="*" nullmsg="请输入名称!" placeholder="请输入名称" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label">角色描述：</label>
+							<div class="layui-input-block">
+								<textarea name="m_info" placeholder="请输入描述" class="layui-textarea"></textarea>
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label">管理权限：</label>
+							<div class="layui-input-block">
+								<!-- {volist name="roleList" id="menu"}
+								{eq name="$menu.parent_id" value="0"}
+								{neq name="$i" value="1"}</div>{/neq} -->
+							    <div class="m_ctr">
+								<!-- {else} -->
+								<!-- <input type="checkbox" name="m_power[]" lay-skin="primary" title="{$menu.title}" value="{$menu.id}" {eq name=":in_array($menu.id,$power_arr)" value="1"}checked=""{/eq} /> -->
+								<!-- {/eq}
+								{/volist} -->
+								</div>
+							</div>
+						</div>
+						<div class="layui-form-item" style="border: 0;">
+							<div class="layui-input-block">
+								<button class="layui-btn" lay-submit lay-filter="OM-form-add">立即提交</button>
+								<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<script>
+	layui.use(['form'], function(){
+  		var form = layui.form;
+  
+  		//监听搜索
+ 		form.on('submit(OM-form-add)', function(data){
+    		var field = data.field;
+    
+    		alert(JSON.stringify(field));
+    		
+    		window.location.href='Your URL';
+    		//执行重载
+    		/* table.reload('OM-system-role', {
+      			where: field
+    		}); */
+  		});
+	});
+</script>

@@ -1,0 +1,99 @@
+server:
+    port: 80
+    #指定发布的目录
+    context-path: /
+    error:
+      #always,on-trace-param
+      include-stacktrace: always
+https:
+    port: 443
+
+logging:
+    config: classpath:logback-spring.xml
+
+multipart.max-file-size: 50Mb
+multipart.max-request-size: 100Mb
+
+#自定义配置    
+com.yjh:
+    site: #冒号后面必须带一个空格
+        host: 
+        #静态资源服务器
+        staticHost: 
+        whiteDomainList: localhost
+        siteDirPath: 
+        uploadDir: upload/
+        session: session_
+        prefix: oumu
+        coverCharge: 0 #提现手续费
+        #报名推荐积分
+        fractionA: 0
+        #教练详情页分享积分
+        fractionB: 0
+        #二维码分享积分
+        fractionC: 0
+    wx:
+        #公众号
+        appId: aa
+        #公众号密钥
+        appSecret: aa
+        #商户号id
+        mchId : aa
+        #商户密钥
+        mchKey : aa
+        #支付成功后回调url
+        notifyUrl : aa
+spring:
+    aop.proxy-target-class: false
+    http:
+        encoding:
+            # the encoding of HTTP requests/responses
+            charset: utf8
+            # enable http encoding support
+            enabled: true
+             #jdbc:mysql://rm-wz928a9jr690875b7qo.mysql.rds.aliyuncs.com/mbl_shop?useUnicode=true&amp;characterEncoding=utf8
+    datasource:
+        name: square_test
+        #url: jdbc:mysql://192.168.51.100:3306/runx?useUnicode=true&amp;characterEncoding=utf8
+        #url: jdbc:mysql://39.105.24.211:3306/square?useUnicode=true&amp;characterEncoding=utf8
+        #url: jdbc:mysql://rm-wz928a9jr690875b7qo.mysql.rds.aliyuncs.com:3306/square?useUnicode=true&amp;characterEncoding=utf8
+        url: jdbc:mysql://39.105.24.211:3306/square_test?useUnicode=true&amp;characterEncoding=utf8
+        username: root
+        password: root   #root
+        #url: jdbc:mysql://192.168.51.100:3306/test_shop?useUnicode=true&amp;characterEncoding=utf8
+        #username: root
+        #password: 1234
+        # 使用druid数据源
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        filters: stat
+        maxActive: 20
+        initialSize: 1
+        maxWait: 60000
+        minIdle: 1
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxOpenPreparedStatements: 20
+        connectionInitSqls: set names utf8mb4
+    mvc:
+        view:
+            prefix: /templates/
+            suffix: .html
+        static-path-pattern: /**
+    freemarker:
+        cache: false
+        request-context-attribute: request
+        suffix: .html
+    thymeleaf:
+      cache: false
+      template-resolver-order: 0
+    redis:
+        host: 127.0.0.1
+        password: 
+        notify-keyspace-events: true
+        port: 6379

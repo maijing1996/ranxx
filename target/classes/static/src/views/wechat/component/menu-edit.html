@@ -1,0 +1,82 @@
+
+<div class="layui-main">
+	<div class="layui-body-ctr">
+		<div class="layui-ctt1">
+			<form id="myform" class="layui-form" action="{:url('save')}">
+				<div class="layui-tab layui-tab-card">
+					<ul class="layui-tab-title">
+						<li class="layui-this">编辑菜单</li>
+					</ul>
+					<div class="layui-tab-content">
+						<div class="layui-form-item">
+							<label class="layui-form-label">所属菜单：</label>
+							<div class="layui-form-mid">顶级菜单</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label"><span>*</span> 菜单名称：</label>
+							<div class="layui-input-inline">
+								<input type="text" name="m_title" datatype="*" nullmsg="请输入名称!" value="{{ d.data.avatar || '' }}" placeholder="请输入名称" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label">响应类型：</label>
+							<div class="layui-input-inline" style="width: 120px;">
+								<select name="m_type" lay-filter="m_type">
+									<option value="0">链接</option>
+									<option value="1">关键词</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="layui-form-item">
+							<label class="layui-form-label"><span>*</span> <span id="t_info" style="color: #333;">{eq name="$data.type" value="0"}链接地址{else}关键词{/eq}</span>：</label>
+							<div class="layui-input-inline">
+								<input type="text" id="m_info" name="m_info" datatype="*" nullmsg="请输入地址或关键词" placeholder='请输入{eq name="$data.type" value="0"}链接地址{else}关键词{/eq}' value="{{ d.data.avatar || '' }}" class="layui-input">
+							</div>
+							<div id="span_info" class="layui-form-mid layui-word-aux">{eq name="$data.type" value="0"}必须包含http://{else}设置后到微信回复中设置动作{/eq}</div>
+						</div>
+
+						<div class="layui-form-item">
+							<label class="layui-form-label"><span>*</span> 排序：</label>
+							<div class="layui-input-inline" style="width: 80px;">
+								<input type="text" name="m_px" datatype="n" nullmsg="请输入排序!" errormsg="排序不为数字!" value="{{ d.data.avatar || '' }}" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label">是否显示：</label>
+							<div class="layui-input-block">
+								<input type="checkbox" name="m_show" value="1"  lay-skin="switch">
+							</div>
+						</div>
+						<input type="hidden" name="m_tid" value="{{ d.data.avatar || '' }}">
+						<input type="hidden" name="m_id" value="{{ d.data.avatar || '' }}">
+						<div class="layui-form-item" style="border: 0;">
+							<div class="layui-input-block">
+								<button class="layui-btn">立即提交</button>
+								<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+	{include file="footer" /}
+	<script>
+        layui.use(['form'], function(){
+            var form = layui.form();
+            form.on('select(m_type)',function (data) {
+                if(data.value==0){
+                    $("#t_info").html('链接地址');
+                    $("#m_info").attr('placeholder','请输入链接地址');
+                    $("#span_info").html('必须包含http://');
+                }
+                else {
+                    $("#t_info").html('关键词');
+                    $("#m_info").attr('placeholder','请输入关键词');
+                    $("#span_info").html('设置后到微信回复中设置动作');
+                }
+            });
+        });
+	</script>
